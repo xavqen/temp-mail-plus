@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temp Mail Plus</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>Unlimited Temp Mail</h1>
+        <p>Generate fast temporary e-mail and read messages securely Without any buying. It is FREE!</p>
+      </div>
+      <span class="badge">FREE</span>
+    </header>
+
+    <div class="refresh-bar" id="refreshBar" aria-hidden="true">
+      <div class="refresh-bar-fill" id="refreshBarFill"></div>
+    </div>
+
+    <section class="panel generate-panel">
+      <h2>Generate Inbox Address</h2>
+      <div class="row">
+        <input id="generatedEmail" type="text" placeholder="Click generate to get an email" readonly />
+        <button id="copyEmail" onclick="copyEmail()" disabled>Copy Email</button>
+      </div>
+      <div class="credentials">
+        <span><strong>Password:</strong> <em id="generatedPassword">••••••</em></span>
+        <button id="copyPassword" class="secondary" onclick="copyPassword()" disabled>Copy Password</button>
+      </div>
+      <div class="row">
+        <button class="primary" onclick="generateEmail()">Generate Email</button>
+        <button class="secondary" onclick="loadInbox()">Refresh Inbox</button>
+      </div>
+      <div id="status" class="status hidden"></div>
+    </section>
+
+    <section class="panel inbox-panel">
+      <h2>Inbox</h2>
+      <ul id="inbox" class="inbox-list"></ul>
+
+    <section class="panel message-panel">
+      <h2>Message Preview</h2>
+      <div id="messageDetails" class="message-details">
+        <p>Select an email from the inbox to view the content.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

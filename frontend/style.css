@@ -1,0 +1,325 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0b1222;
+  --surface: #111b34;
+  --surface2: #172243;
+  --text: #e8ebf8;
+  --muted: #99a4c4;
+  --primary: #5e79ff;
+  --primary-hover: #3c5dde;
+  --success: #22c55e;
+  --error: #f43f5e;
+  --panel-inner: rgba(20, 42, 82, 0.55);
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(160deg, #0d1a30 0%, #091124 20%, #0b1322 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1080px;
+  margin: 16px auto;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.topbar {
+  background: linear-gradient(90deg, #152545 0%, #0f1a32 100%);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(84, 127, 255, 0.45);
+  box-shadow: 0 20px 35px rgba(3, 7, 25, 0.35);
+}
+
+.topbar h1 {
+  margin: 0;
+  color: #e6f0ff;
+  font-size: 1.4rem;
+}
+
+.topbar p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.badge {
+  align-self: flex-start;
+  background: #4f72ff;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.panel {
+  background: rgba(13, 24, 53, 0.88);
+  border-radius: 14px;
+  border: 1px solid rgba(124, 143, 218, 0.33);
+  padding: 14px;
+  box-shadow: 0 14px 25px rgba(0, 0, 0, 0.36);
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: #e4ebff;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(128, 146, 203, 0.55);
+  border-radius: 10px;
+  background: #0e1a35;
+  color: var(--text);
+  font-size: 0.96rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: #fff;
+  font-weight: 600;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button.primary {
+  background: var(--primary);
+}
+
+button.primary:hover {
+  background: var(--primary-hover);
+}
+
+button.secondary {
+  background: #2e3b6c;
+}
+
+button.secondary:hover {
+  background: #3a4d8e;
+}
+
+button#copyEmail,
+button#copyPassword {
+  width: 100%;
+  background: #1f97a5;
+}
+
+.credentials {
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.status {
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.status.hidden {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.status.success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #bdffdb;
+}
+
+.status.error {
+  background: rgba(244, 63, 94, 0.2);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  color: #ffcfd8;
+}
+
+.refresh-bar {
+  width: 100%;
+  height: 5px;
+  margin: 8px 0;
+  border-radius: 4px;
+  background: rgba(134, 146, 216, 0.2);
+  overflow: hidden;
+}
+
+.refresh-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+  transition: width 0.2s linear;
+}
+
+.inbox-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 360px;
+  overflow: auto;
+  min-height: 220px;
+}
+
+.inbox-list li {
+  border: 1px solid rgba(128, 136, 196, 0.25);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  padding: 0;
+  background: #0e1630;
+}
+
+.inbox-item.selected {
+  box-shadow: 0 0 0 2px rgba(94, 121, 255, 0.7);
+  border-color: rgba(70, 110, 255, 0.85);
+}
+
+.message-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.message-info {
+  flex: 1;
+  padding-right: 8px;
+}
+
+.delete-btn {
+  border: none;
+  background: #f43f5e;
+  color: white;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 0.95rem;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.14s ease, background 0.15s ease;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-btn:hover {
+  transform: scale(1.06);
+  background: #dc2743;
+}
+
+.inbox-list li:hover {
+  border-color: rgba(94, 121, 255, 0.9);
+}
+
+.message-details {
+  color: var(--text);
+  min-height: 230px;
+  max-height: 470px;
+  border: 1px solid rgba(128, 136, 196, 0.20);
+  border-radius: 10px;
+  padding: 14px;
+  background: #0f1834;
+  overflow: auto;
+}
+
+.message-details h3 {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .app {
+    padding: 18px;
+  }
+
+  .row {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .topbar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .topbar p {
+    margin: 0;
+  }
+
+  .app {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .generate-panel,
+  .inbox-panel {
+    grid-column: span 1;
+  }
+
+  .message-panel {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  button#copyEmail,
+  button#copyPassword {
+    width: auto;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .credentials {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.message-details h3 {
+  margin-top: 0;
+}
+
+@media (min-width: 980px) {
+  .app {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .message-panel {
+    grid-column: span 2;
+  }
+}
+
