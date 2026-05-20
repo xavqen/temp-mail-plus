@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://temp-mail-plus.netlify.app/sitemap.xml
