@@ -1,4 +1,4 @@
-const backend = "http://localhost:3000";
+const backend = "https://tempmail-backend-lxnn.onrender.com";
 let currentAccount = null;
 let currentMessages = [];
 let selectedMessageId = null;

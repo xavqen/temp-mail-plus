@@ -21,7 +21,12 @@ function createSecurePassword(length = 14) {
 app.get("/generate", async (req, res) => {
   try {
     const domainsRes = await axios.get("https://api.mail.tm/domains");
-    const domain = domainsRes.data["hydra:member"][0].domain;
+    // Filter for .com domains, fallback to first available if none found
+    const allDomains = domainsRes.data["hydra:member"];
+    let domain = allDomains.find(d => d.domain.endsWith(".com"))?.domain;
+    if (!domain) {
+      domain = allDomains[0].domain;
+    }
 
     const email = `user${Date.now()}@${domain}`;
     const password = createSecurePassword(16);
