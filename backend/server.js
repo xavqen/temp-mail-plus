@@ -17,6 +17,10 @@ function createSecurePassword(length = 14) {
   return result;
 }
 
+app.get('/ping', (req, res) => {
+  res.status(200).send('Server is awake');
+});
+
 // Generate Temp Email
 app.get("/generate", async (req, res) => {
   try {
