@@ -323,3 +323,62 @@ button#copyPassword {
   }
 }
 
+/* footer */
+
+/* --- Footer Styles --- */
+.site-footer {
+    background-color: #1f2937; /* Dark theme color */
+    color: #f3f4f6;
+    padding: 24px 0;
+    margin-top: auto; /* Agar aapka layout flexbox hai, toh footer niche rahega */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-wrap: wrap; /* Mobile par adjust hone ke liye */
+}
+
+.footer-left p {
+    margin: 0;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.footer-right .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px; /* Links ke beech ka gap */
+}
+
+.footer-right .footer-links li a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.footer-right .footer-links li a:hover {
+    color: #ffffff; /* Hover karne par white ho jayega */
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .footer-right .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

@@ -5,6 +5,24 @@ let selectedMessageId = null;
 let refreshIntervalId = null;
 const AUTO_REFRESH_MS = 3000;
 
+// File load hote hi local storage check karein
+document.addEventListener("DOMContentLoaded", async () => {
+  const savedData = localStorage.getItem("tempMailAccount");
+  if (savedData) {
+    currentAccount = JSON.parse(savedData);
+
+    // UI ko update karein
+    document.getElementById("generatedEmail").value = currentAccount.email;
+    document.getElementById("generatedPassword").textContent = currentAccount.password || "(not available)";
+    document.getElementById("copyEmail").disabled = false;
+    document.getElementById("copyPassword").disabled = false;
+
+    setStatus("Restored previous session.", "success");
+    await loadInbox(true);
+    startAutoRefresh();
+  }
+});
+
 function setStatus(message, type = "success") {
   const statusEl = document.getElementById("status");
   statusEl.className = `status ${type}`;
@@ -57,7 +75,11 @@ async function deleteMessage(event, id) {
   let deleteFailed = false;
 
   try {
-    const res = await fetch(`${backend}/message/${id}`, { method: "DELETE" });
+    // fetch line ko is se replace karein
+    const res = await fetch(`${backend}/message/${id}`, {
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${currentAccount.token}` }
+    });
     const text = await res.text();
     let info = {};
     try {
@@ -103,6 +125,7 @@ async function generateEmail() {
     }
 
     currentAccount = data;
+    localStorage.setItem("tempMailAccount", JSON.stringify(currentAccount));
     document.getElementById("generatedEmail").value = currentAccount.email;
     document.getElementById("generatedPassword").textContent = currentAccount.password || "(not available)";
     document.getElementById("copyEmail").disabled = false;
@@ -124,7 +147,10 @@ async function loadInbox(skipRequires = false) {
 
   try {
     setStatus("Loading inbox...", "success");
-    const res = await fetch(`${backend}/messages`);
+    // fetch line ko is se replace karein
+    const res = await fetch(`${backend}/messages`, {
+      headers: { "Authorization": `Bearer ${currentAccount.token}` }
+    });
     const messages = await res.json();
 
     if (!Array.isArray(messages)) {
@@ -177,7 +203,10 @@ async function loadInbox(skipRequires = false) {
 
 async function readMessage(id) {
   try {
-    const res = await fetch(`${backend}/message/${id}`);
+    // fetch line ko is se replace karein
+    const res = await fetch(`${backend}/message/${id}`, {
+      headers: { "Authorization": `Bearer ${currentAccount.token}` }
+    });
     const msg = await res.json();
 
     if (msg.error) {
