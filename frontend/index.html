@@ -34,70 +34,25 @@
 
 <body>
   <header class="main-navbar">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">
-        <span class="logo-mark">✉</span>
-        <span>Temp Mail Plus</span>
-      </a>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <span class="logo-mark">✉</span>
+      <span>Temp Mail Plus</span>
+    </a>
 
-      <nav class="nav-links" id="navLinks">
-        <a href="/">Home</a>
-        <a href="/blog/what-is-temporary-email.html">Blog</a>
-        <a href="/privacypolicy.html">Privacy</a>
-        <a href="/contactus.html">Contact</a>
-        <a href="/termsandconditions.html">T&C</a>
-      </nav>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+      ☰
+    </button>
 
-      <div class="nav-actions">
-        <span id="userEmail" class="user-email hidden"></span>
-        <button id="logoutBtn" class="btn-login hidden" onclick="logoutUser()">Logout</button>
-
-        <button id="signinBtn" class="btn-login" onclick="openAuthModal('signin')">Sign In</button>
-        <button id="signupBtn" class="btn-signup" onclick="openAuthModal('signup')">Sign Up</button>
-
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-      </div>
-  </header>
-
-  <div class="auth-modal" id="authModal">
-    <div class="auth-card">
-      <button class="auth-close" onclick="closeAuthModal()">×</button>
-
-      <div class="auth-tabs">
-        <button id="signinTab" class="active" onclick="switchAuth('signin')">Sign In</button>
-        <button id="signupTab" onclick="switchAuth('signup')">Sign Up</button>
-      </div>
-
-      <form class="auth-form" id="signinForm">
-        <h2>Welcome back</h2>
-        <p>Sign in to continue using Temp Mail Plus.</p>
-
-        <label>Email</label>
-        <input type="email" placeholder="Enter your email" required />
-
-        <label>Password</label>
-        <input type="password" placeholder="Enter your password" required />
-
-        <button type="submit" class="auth-submit">Sign In</button>
-      </form>
-
-      <form class="auth-form hidden" id="signupForm">
-        <h2>Create account</h2>
-        <p>Join Temp Mail Plus for a better experience.</p>
-
-        <label>Name</label>
-        <input type="text" placeholder="Enter your name" required />
-
-        <label>Email</label>
-        <input type="email" placeholder="Enter your email" required />
-
-        <label>Password</label>
-        <input type="password" placeholder="Create password" required />
-
-        <button type="submit" class="auth-submit">Create Account</button>
-      </form>
-    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/blog/what-is-temporary-email.html">Blog</a>
+      <a href="/privacypolicy.html">Privacy Policy</a>
+      <a href="/contactus.html">Contact</a>
+      <a href="/termsandconditions.html">Terms</a>
+    </nav>
   </div>
+</header>
 
   <main class="app">
     <header class="topbar">
