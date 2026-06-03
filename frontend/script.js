@@ -255,4 +255,126 @@ function copyPassword() {
 }
 
 
+// supabase Auth integration (for future use in user accounts, if needed)
+const SUPABASE_URL = "https://qrmdcfayvtczlyeehvzu.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFybWRjZmF5dnRjemx5ZWVodnp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjk4NjIsImV4cCI6MjA5NTc0NTg2Mn0.k3n70o4ht67Th17PD6gya8PCpuIhk_wsBKKQMJjlthg";
 
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function toggleMobileMenu() {
+  document.getElementById("navLinks")?.classList.toggle("active");
+}
+
+function openAuthModal(type = "signin") {
+  document.getElementById("authModal")?.classList.add("active");
+  switchAuth(type);
+}
+
+function closeAuthModal() {
+  document.getElementById("authModal")?.classList.remove("active");
+}
+
+function switchAuth(type) {
+  const signinForm = document.getElementById("signinForm");
+  const signupForm = document.getElementById("signupForm");
+  const signinTab = document.getElementById("signinTab");
+  const signupTab = document.getElementById("signupTab");
+
+  const isSignin = type === "signin";
+
+  signinForm?.classList.toggle("hidden", !isSignin);
+  signupForm?.classList.toggle("hidden", isSignin);
+  signinTab?.classList.toggle("active", isSignin);
+  signupTab?.classList.toggle("active", !isSignin);
+}
+
+function showToast(message) {
+  alert(message);
+}
+
+async function updateAuthUI() {
+  const { data } = await supabaseClient.auth.getUser();
+  const user = data?.user;
+
+  const userEmail = document.getElementById("userEmail");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const signinBtn = document.getElementById("signinBtn");
+  const signupBtn = document.getElementById("signupBtn");
+
+  if (user) {
+    userEmail.textContent = user.email;
+    userEmail.classList.remove("hidden");
+    logoutBtn.classList.remove("hidden");
+    signinBtn.classList.add("hidden");
+    signupBtn.classList.add("hidden");
+  } else {
+    userEmail.textContent = "";
+    userEmail.classList.add("hidden");
+    logoutBtn.classList.add("hidden");
+    signinBtn.classList.remove("hidden");
+    signupBtn.classList.remove("hidden");
+  }
+}
+
+document.getElementById("signinForm")?.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const email = this.querySelector('input[type="email"]').value.trim();
+  const password = this.querySelector('input[type="password"]').value.trim();
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    showToast(error.message);
+    return;
+  }
+
+  closeAuthModal();
+  await updateAuthUI();
+  showToast("Signed in successfully.");
+});
+
+document.getElementById("signupForm")?.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const inputs = this.querySelectorAll("input");
+  const name = inputs[0].value.trim();
+  const email = inputs[1].value.trim();
+  const password = inputs[2].value.trim();
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { name },
+    },
+  });
+
+  if (error) {
+    showToast(error.message);
+    return;
+  }
+
+  closeAuthModal();
+  showToast("Account created. Check your email for confirmation.");
+});
+
+async function logoutUser() {
+  await supabaseClient.auth.signOut();
+  await updateAuthUI();
+  showToast("Logged out successfully.");
+}
+
+document.addEventListener("click", function (e) {
+  const modal = document.getElementById("authModal");
+  if (e.target === modal) closeAuthModal();
+});
+
+supabaseClient.auth.onAuthStateChange(() => {
+  updateAuthUI();
+});
+
+updateAuthUI();
