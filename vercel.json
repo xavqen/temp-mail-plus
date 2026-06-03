@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/blog/:path*",
+      "destination": "/blog/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
