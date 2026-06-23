@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://temp-mail-plus.vercel.app/sitemap.xml
+Sitemap: https://temp-mail-plus.netlify.app/sitemap.xml
